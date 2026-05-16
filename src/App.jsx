@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import ProductList from './components/ProductList'
 import DarkModeToggle from './components/DarkModeToggle'
 import Cart from './components/Cart'
-import { dark } from '@mui/material/styles/createPalette'
+import ProductCard from './components/ProductCard';
+
 
 
 const productsData = [
-  { id: 1, name: "Milk", category: "Dairy" },
-  { id: 2, name: "Cheese", category: "Dairy" },
-  { id: 3, name: "Apple", category: "Fruits" },
-  { id: 4, name: "Banana", category: "Fruits" },
-  { id: 5, name: "Bread", category: "Bakery" },
+  { id: 1, name: "Milk", category: "Dairy", inStock: true },
+  { id: 2, name: "Cheese", category: "Dairy", inStock: true},
+  { id: 3, name: "Apple", category: "Fruits", inStock: true },
+  { id: 4, name: "Banana", category: "Fruits", inStock: true },
+  { id: 5, name: "Bread", category: "Bakery", inStock: true},
 ];
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
 
       {/* Dark Mode Button */}
       <button onClick={toggleDarkMode}>
-        {darkMode ? "Light Mode" : "Dark Mode"}
+        {darkMode ? "Toggle Light Mode" : "Toggle Dark Mode"}
       </button>
 
       <br />
@@ -77,27 +78,17 @@ function App() {
       <h2>Products</h2>
 
       {/* Product List */}
-      {filteredProducts.map((product) => (
-        <div key={product.id} style={{ marginBottom: "10px" }}>
-          <span>
-            {product.name} - {product.category}
-          </span>
-
-          <button
-            onClick={() => addToCart(product)}
-            style={{ marginLeft: "10px" }}
-          >
-            Add to Cart
-          </button>
-        </div>
-      ))}
+      <ProductList
+       addedToCart={addToCart}
+       selectedCategory={selectedCategory}
+        />
+        
+     
 
       <h2>Cart</h2>
 
       {/* Cart Items */}
-      {cart.map((item, index) => (
-        <p key={index}>{item.name} is in your cart.</p>
-      ))}
+      <Cart cart={cart} />
     </div>
   );
 }
